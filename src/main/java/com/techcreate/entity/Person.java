@@ -1,13 +1,19 @@
 package com.techcreate.entity;
 
-import java.util.Map;
-
 public class Person {
     private String uuid;
     private String name;
     private String id;
     private String dob;
-    private Map<String, Integer> similar;
+    private String uuidSimilar;
+
+    public String getUuidSimilar() {
+        return uuidSimilar;
+    }
+
+    public void setUuidSimilar(String uuidSimilar) {
+        this.uuidSimilar = uuidSimilar;
+    }
 
     public void setUuid(String uuid) {
         this.uuid = uuid;

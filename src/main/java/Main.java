@@ -2,7 +2,6 @@ import com.techcreate.entity.Person;
 import com.techcreate.properties.PropertiesLoader;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -29,16 +28,43 @@ public class Main {
         return listPersons;
     }
 
-    public static void analyzePersons(List<Person> listPersons, final int MAX_SIMILARITY) {
+    public static void analyzePersons(List<Person> listPersons, int MAX_SIMILARITY) {
         int similarities = 0;
         for(int i=0; i<listPersons.size(); i++) {
+            Person p1 = listPersons.get(i);
+            if(p1.getUuidSimilar() != null) {
+                continue;
+            }
             for(int j=i+1; j<listPersons.size(); j++) {
-                Person p1 = listPersons.get(i), p2 = listPersons.get(j);
+                Person p2 = listPersons.get(j);
                 similarities = checkSimilarities(p1, p2);
 
                 if(similarities >= MAX_SIMILARITY) {
-                    System.out.println("Record "+p1.getUuid()+" and "+p2.getUuid()+" are the same");
+                    //System.out.println("Record "+p1.getUuid()+" and "+p2.getUuid()+" are the same");
+                    p2.setUuidSimilar(p1.getUuid());
                 }
+            }
+        }
+        produceOutput(listPersons);
+    }
+
+    private static void produceOutput(List<Person> listPersons) {
+        for(int i=0; i<listPersons.size(); i++) {
+            StringBuffer strBuff = new StringBuffer();
+            Person p1 = listPersons.get(i);
+            if(p1.getUuidSimilar() != null) {
+                continue;
+            }
+            strBuff.append("Record "+p1.getUuid());
+            for(int j=i+1; j<listPersons.size(); j++) {
+                Person p2 = listPersons.get(j);
+                if(p1.getUuid().equals(p2.getUuidSimilar())) {
+                    strBuff.append(", "+p2.getUuid());
+                }
+            }
+            if(strBuff.toString().length() > 10) {
+                strBuff.append(" are the same");
+                System.out.println(strBuff.toString());
             }
         }
     }

@@ -55,16 +55,14 @@ public class Main {
             if(p1.getUuidSimilar() != null) {
                 continue;
             }
-            strBuff.append("Record "+p1.getUuid());
             for(int j=i+1; j<listPersons.size(); j++) {
                 Person p2 = listPersons.get(j);
                 if(p1.getUuid().equals(p2.getUuidSimilar())) {
                     strBuff.append(", "+p2.getUuid());
                 }
             }
-            if(strBuff.toString().length() > 10) {
-                strBuff.append(" are the same");
-                System.out.println(strBuff.toString());
+            if(strBuff.toString().length() > 0) {
+                System.out.println(new StringBuffer("Record "+p1.getUuid()).append(strBuff).append(" are the same"));
             }
         }
     }
@@ -77,6 +75,7 @@ public class Main {
 
         return similarities;
     }
+
     public static void main(String[] args) throws Exception {
         Properties prop = PropertiesLoader.loadProperties();
         final String RELATIONSHIP_FILE = prop.getProperty("relationship.fileName");

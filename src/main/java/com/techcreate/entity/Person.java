@@ -46,4 +46,8 @@ public class Person {
     public String getDob() {
         return dob;
     }
+
+    public String toString() {
+        return "[uuid: "+uuid+" ,name: "+name+" ,id: "+id+" ,dob: "+dob+" ,uuidSimilar: "+uuidSimilar+"]";
+    }
 }

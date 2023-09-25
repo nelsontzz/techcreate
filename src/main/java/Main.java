@@ -8,12 +8,12 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) throws Exception {
         PersonDAO dao = new PersonDAO();
-        List<Person> listPersons = dao.retreveDataToList();
+        List<Person> listPersons = dao.retrieveDataToList(null);
 
         PersonService service = new PersonService();
         service.analyzePersons(listPersons);
 
         PersonView view = new PersonView();
-        view.produceOutput(listPersons);
+        System.out.println(view.produceOutput(listPersons));
     }
 }
